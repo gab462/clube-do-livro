@@ -8,11 +8,11 @@
               write-to-file read-from-file append-to-file])
 (require hyrule [defmain setv+ ->> ->] :readers [% /])
 
-; TODO: default-guild-ids not working
 (setv+ {:strs [token guilds]} (load-json (read-from-file "env.json"))
-       bot (commands.Bot))
+       bot (commands.Bot :default-guild-ids guilds))
 
 (defn/a [bot.event] on-ready []
+  (await (.sync_all_application_commands bot))
   (print f"Logged in as {bot.user}"))
 
 (defn/a [(bot.slash-command
