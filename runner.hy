@@ -1,5 +1,5 @@
 (import hy)
-(require hyrule [let+ fn+ ->>] :readers [%])
+(require hyrule [fn+ ->>] :readers [%])
 
 (defmacro run-bot [token guilds handle-ready command-map]
   (let [cmds (.items command-map)]

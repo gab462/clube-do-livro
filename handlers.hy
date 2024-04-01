@@ -1,5 +1,5 @@
 (import util *
-        hyrule [flatten
+        hyrule [flatten]
         random [choice :as random-choice]
         json [dumps :as dump-json
               loads :as load-json])

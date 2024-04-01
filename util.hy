@@ -1,14 +1,13 @@
-(import operator [methodcaller itemgetter]
+(import operator [itemgetter]
         functools [reduce]
         collections [namedtuple])
-(require hyrule [fn+ -> ->>] :readers [%])
+(require hyrule [fn+ ->>] :readers [%])
 
 (setv first (itemgetter 0)
       second (itemgetter 1))
 
 (defn split-on [sep s]
-  (let [f (methodcaller "split" sep)]
-    (f s)))
+  (.split s sep))
 
 (defn write-to-file [path data]
   (with [f (open path "w+")]
