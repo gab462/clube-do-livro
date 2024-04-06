@@ -1,17 +1,14 @@
-(import hy)
-(require hyrule [fn+ ->>] :readers [%])
+(require std * :readers *) (import std *)
 
 (defmacro run-bot [token guilds handle-ready command-map]
-  (let [cmds (.items command-map)]
+  (let [cmds (.items (hy.eval command-map))]
     `(let [bot (commands.Bot :default-guild-ids ~guilds)]
        (defn/a [bot.event] on-ready []
          (await (~handle-ready bot)))
        ~@(->> cmds
-              (map (fn+ [[k d]] [k (dict (.items d))])) ; FIXME: ?????
-              (map (fn+ [[k {:keys [description args handler]}]]
+              (map (fn+ [[k {:strs [description args handler]}]]
                      `(defn/a [(bot.slash-command)]
-                              ~(hy.models.Symbol (getattr k "name")) [interaction ~@args]
+                              ~(hy.models.Symbol k) [interaction ~@args]
                         ~description
-                        (await (interaction.send (~handler ~@(->> args (map #%(get %1 0)) list)))))))
-              list)
+                        (await (interaction.send (~handler ~@(->> args (map #%(get %1 0))))))))))
        (bot.run ~token))))
