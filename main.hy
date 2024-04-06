@@ -13,12 +13,18 @@
       #m{:ping #m{:description "Replies with pong!"
                   :args []
                   :handler 'handle.ping}
-         :definir-livros #m{:description "Definir livros a serem considerados para o sorteio"
-                            :args '[[livros (opt :description "Livros a serem considerados")]]
+         :definir-livros #m{:description "Definir livros para o sorteio"
+                            :args '[[livros (opt :description "Livros a serem adicionados")]]
                             :handler 'handle.define-books}
-         :escolhido #m{:description "Definir alguem como escolhido para ter seu livro escolhido apos todos os restantes"
-                       :args '[[nome (opt :description "Nome do escolhido")]]
-                       :handler 'handle.chosen}
+         :definir-escolhido #m{:description "Excluir pessoa dessa rodada de sorteios"
+                               :args '[[nome (opt :description "Nome do escolhido")]]
+                               :handler 'handle.define-chosen}
+         :livros #m{:description "Visualizar livros restantes"
+                    :args []
+                    :handler 'handle.get-books}
+         :escolhidos #m{:description "Visualizar escolhidos dessa rodada"
+                        :args []
+                        :handler 'handle.get-chosen}
          :sorteio #m{:description "Sortear proximo livro!"
                      :args []
                      :handler 'handle.draw}})))

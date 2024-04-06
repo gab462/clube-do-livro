@@ -14,9 +14,15 @@
   (->> books (split-on " ") pairs pairs->map thaw dump-json (write-to-file "books.json"))
   (read-from-file "books.json"))
 
-(defn chosen [name]
+(defn define-chosen [name]
   (append-to-file "chosen.txt" name)
   f"{name} definido como escolhido")
+
+(defn get-books []
+  (read-from-file "books.json"))
+
+(defn get-chosen []
+  (read-from-file "chosen.txt"))
 
 (defn draw []
   (let [collection (->> (read-from-file "books.json") load-json .items)
