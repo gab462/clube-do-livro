@@ -4,6 +4,8 @@
 
 (import nextcord [SlashOption :as opt]
         nextcord.ext [commands]
+        json [loads :as load-json]
+        util [read-from-file]
         handlers :as handle)
 
 (defmain [#* args]

@@ -1,8 +1,14 @@
 (require std * :readers *) (import std *)
 
-(import os.path [isfile])
+(import os.path [isfile]
+        json [dumps :as dump-json
+              loads :as load-json]
+        random [choice :as random-choice]
+        util [first second split-on pairs pairs->map
+              write-to-file append-to-file read-from-file])
 
 (defn/a ready [bot]
+  (print "Refreshing application commands...")
   (await (.sync-all-application-commands bot))
   (when (not (isfile "chosen.txt")) (write-to-file "chosen.txt" ""))
   (print f"Logged in as {bot.user}"))
