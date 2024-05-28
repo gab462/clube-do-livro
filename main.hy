@@ -29,4 +29,7 @@
                         :handler 'handle.get-chosen}
          :sorteio #m{:description "Sortear proximo livro!"
                      :args []
-                     :handler 'handle.draw}})))
+                     :handler 'handle.draw}
+         :frase #m{:description "Frase aleatoria"
+                   :args []
+                   :handler 'handle.phrase}})))

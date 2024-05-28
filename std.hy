@@ -34,3 +34,12 @@
                          #(k (f (get m k)))))
                   dict)]
     (.update m args)))
+
+(defn take [n it]
+  (islice it n))
+
+(defn drop [n it]
+  (islice it n nil))
+
+(defn iterate [f x]
+  (accumulate (repeat x) (fn [fx _] (f fx))))

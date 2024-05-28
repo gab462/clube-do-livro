@@ -1,5 +1,7 @@
 (require std * :readers *) (import std *)
 
+(import urllib.request [urlopen :as open-url])
+
 (setv first (itemgetter 0)
       second (itemgetter 1))
 
@@ -27,3 +29,7 @@
 (defn read-from-file [path]
   (with [f (open path "r")]
     (.read f)))
+
+(defn read-from-url [url]
+  (with [page (open-url url)]
+    (-> page .read (.decode "utf-8"))))

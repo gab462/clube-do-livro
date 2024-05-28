@@ -5,7 +5,8 @@
               loads :as load-json]
         random [choice :as random-choice]
         util [first second split-on pairs pairs->map
-              write-to-file append-to-file read-from-file])
+              write-to-file append-to-file read-from-file read-from-url]
+        re [sub])
 
 (defn/a ready [bot]
   (print "Refreshing application commands...")
@@ -47,3 +48,21 @@
       (append-to-file "chosen.txt" newly-chosen))
     (write-to-file "books.json" (dump-json (thaw new-collection)))
     f"Livro escolhido: {choice}"))
+
+(defn phrase []
+  (->> (read-from-file "env.json")
+       load-json
+       (#%(get %1 "phrases"))
+       read-from-url
+       (sub r"[\r_]" "\n")
+       (#%(.split %1 "\n"))
+       (filter bool)
+       (drop 4)
+       list
+       (#%(zip (ncut %1 ::3) (ncut %1 1::3) (ncut %1 2::3)))
+       (map #%(let [[date phrase description] %1]
+                (.join "\n" [(+ "# " phrase)
+                             (+ "**" description "**")
+                             (+ "_" date "_")])))
+       list
+       random-choice))
